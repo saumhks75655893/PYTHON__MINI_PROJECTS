@@ -1,6 +1,10 @@
 import mysql.connector
-mydb = mysql.connector.connect(
-    host='localhost', user='root', password='Mysql@75655893#', database='bank_management')
+mydb = mysql.connector.connect(host='localhost',
+                               user='root',
+                               password='Mysql@75655893#',
+                               database='bank_management'
+                               )
+
 
 
 def OpenAcc():
@@ -12,7 +16,7 @@ def OpenAcc():
     ob = int(input("Enter The Opening Balance "))
     data1 = (n, ac, db, add, cn, ob)
     data2 = (n, ac, ob)
-    sql1 = ('insert into account values(%s,%s,%s,%s,%s,%s,%s)')
+    sql1 = ('insert into account values(%s,%s,%s,%s,%s,%s)')
     sql2 = ('insert into amount values(%s,%s,%s)')
     x = mydb.cursor()
     x.execute(sql1, data1)
@@ -32,14 +36,14 @@ def DepositAmount():
     result = x.fetchone()
     t = result[0] + amount
     sql = ('update amount set balance where AccNo = %s')
-    d = (t,ac)
-    x.execute(sql,d)
+    d = (t, ac)
+    x.execute(sql, d)
     mydb.commit()
     main()
 
 
 def WithdrawAmount():
-    
+
     amount = int(input("Enter the amount , You want to deposite  :  "))
     ac = input("Enter the Account Number : ")
     a = 'select balance from amount where AccNo=%s'
@@ -49,37 +53,46 @@ def WithdrawAmount():
     result = x.fetchone()
     t = result[0] - amount
     sql = ('update amount set balance where AccNo = %s')
-    d = (t,ac)
-    x.execute(sql,d)
+    d = (t, ac)
+    x.execute(sql, d)
     mydb.commit()
     main()
+
 
 def BalanceEnquiry():
     ac = input("Enter the account No  :  ")
     a = 'select * from amount where AccNo = %s'
     data = (ac,)
     x = mydb.cursor()
-    x.execute(a,data)
+    x.execute(a, data)
     result = x.fetchone()
-    print("Balance for account : ",ac, " is ", result[-1])
+    print("Balance for account : ", ac, " is ", result[-1])
     main()
 
 
 def CustomerDetails():
-    
+
     ac = input("Enter the account no  :  ")
     a = 'select * from account where AccNo = %s'
     data = (ac, )
     x = mydb.cursor()
-    x.execute(a,data)
+    x.execute(a, data)
     result = x.fetchone()
     for i in result:
         print(i)
 
     main()
-    
+
+
 def CloseAccount():
-    pass
+    ac = input("Enter the Account Number : ")
+    sql1 = 'delete from account where AccNo=%s'
+    sql2 = 'delete from amount where AccNo=%s'
+    data = (ac,)
+    x = mydb.cursor()
+    x.execute(sql1, data)
+    x.execute(sql2, data)
+    mydb.commit()
 
 
 def main():
@@ -111,3 +124,6 @@ def main():
 
     else:
         print("Invalid Choice   .....  ")
+
+
+main()
