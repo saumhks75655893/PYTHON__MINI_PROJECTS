@@ -31,7 +31,55 @@ def DepositAmount():
     x.execute(a, data)
     result = x.fetchone()
     t = result[0] + amount
+    sql = ('update amount set balance where AccNo = %s')
+    d = (t,ac)
+    x.execute(sql,d)
+    mydb.commit()
+    main()
 
+
+def WithdrawAmount():
+    
+    amount = int(input("Enter the amount , You want to deposite  :  "))
+    ac = input("Enter the Account Number : ")
+    a = 'select balance from amount where AccNo=%s'
+    data = (ac,)
+    x = mydb.cursor()
+    x.execute(a, data)
+    result = x.fetchone()
+    t = result[0] - amount
+    sql = ('update amount set balance where AccNo = %s')
+    d = (t,ac)
+    x.execute(sql,d)
+    mydb.commit()
+    main()
+
+def BalanceEnquiry():
+    ac = input("Enter the account No  :  ")
+    a = 'select * from amount where AccNo = %s'
+    data = (ac,)
+    x = mydb.cursor()
+    x.execute(a,data)
+    result = x.fetchone()
+    print("Balance for account : ",ac, " is ", result[-1])
+    main()
+
+
+def CustomerDetails():
+    
+    ac = input("Enter the account no  :  ")
+    a = 'select * from account where AccNo = %s'
+    data = (ac, )
+    x = mydb.cursor()
+    x.execute(a,data)
+    result = x.fetchone()
+    for i in result:
+        print(i)
+
+    main()
+    
+def CloseAccount():
+    pass
 
 
 def main():
