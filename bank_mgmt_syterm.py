@@ -10,3 +10,7 @@ class Bank:
 
 c1 = Bank("Himanshu kumar", "Bank Of Baroda")
 print(c1)
+c2 = Bank("Shaumya kumari","Bank of Baroda")
+print(c2)
+c3 = Bank("Shubham Das", "Central Bank of India")
+print(c3)
