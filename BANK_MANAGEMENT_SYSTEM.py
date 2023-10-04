@@ -6,7 +6,6 @@ mydb = mysql.connector.connect(host='localhost',
                                )
 
 
-
 def OpenAcc():
     n = input("Enter The  Name : ")
     ac = input("Enter the Account Number : ")
@@ -29,13 +28,13 @@ def OpenAcc():
 def DepositAmount():
     amount = int(input("Enter the amount , You want to deposite  :  "))
     ac = input("Enter the Account Number : ")
-    a = 'select balance from amount where AccNo=%s'
+    a = 'SELECT Balance FROM amount WHERE AccNo=%s'
     data = (ac,)
     x = mydb.cursor()
     x.execute(a, data)
     result = x.fetchone()
     t = result[0] + amount
-    sql = ('update amount set balance where AccNo = %s')
+    sql = ('UPDATE amount SET balance WHERE AccNo = %s')
     d = (t, ac)
     x.execute(sql, d)
     mydb.commit()
@@ -56,6 +55,7 @@ def WithdrawAmount():
     d = (t, ac)
     x.execute(sql, d)
     mydb.commit()
+    print("Amount withdraw succussfully ... ")
     main()
 
 
@@ -78,9 +78,14 @@ def CustomerDetails():
     x = mydb.cursor()
     x.execute(a, data)
     result = x.fetchone()
+    print("*" * 80)
+    print("*" * 22, " : THE ACCOUNT HOLDER DETAIL IS : ", "*"*22)
+    print("*" * 80)
+    print("\n")
     for i in result:
         print(i)
 
+    print("*" * 80)
     main()
 
 
@@ -95,6 +100,10 @@ def CloseAccount():
     mydb.commit()
 
 
+def Bank_close():
+    exit()
+
+
 def main():
 
     print('''
@@ -104,6 +113,7 @@ def main():
             4. BALANCE ENQUIRY
             5. DISPLAY CUSTOMER DETAILS
             6. CLOSE AN ACCOUNT
+            7. CLOSE THE BANK
             ''')
 
     choice = int(input("Enter The Task You Want To Perform :  "))
@@ -121,6 +131,9 @@ def main():
 
     elif (choice == 6):
         CloseAccount()
+
+    elif (choice == 7):
+        Bank_close()
 
     else:
         print("Invalid Choice   .....  ")
