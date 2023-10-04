@@ -33,6 +33,21 @@ def DepositAmount():
     t = result[0] + amount
 
 
+def WithdrawAmount():
+    pass
+
+
+def BalanceEnquiry():
+    pass
+
+
+def CustomerDetails():
+    pass
+
+
+def CloseAccount():
+    pass
+
 
 def main():
 
