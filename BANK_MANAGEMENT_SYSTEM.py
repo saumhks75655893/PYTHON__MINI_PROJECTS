@@ -67,10 +67,17 @@ def BalanceEnquiry():
 
 def CustomerDetails():
     
-    
-    
+    ac = input("Enter the account no  :  ")
+    a = 'select * from account where AccNo = %s'
+    data = (ac, )
+    x = mydb.cursor()
+    x.execute(a,data)
+    result = x.fetchone()
+    for i in result:
+        print(i)
 
-
+    main()
+    
 def CloseAccount():
     pass
 
